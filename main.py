@@ -53,7 +53,11 @@ def run_experiment(
     model = TinyCNN(stem=64, num_classes=10,
                     block=block, rank=rank).to(device)
     params = sum(p.numel() for p in model.parameters())
-    print(f"Model: {block} (rank={rank})  Params={params:,}")
+
+    if block == "lowrank":
+        print(f"Model: {block} (rank={rank})  Params={params:,}")
+    else:
+        print(f"Model: {block}  Params={params:,}")
 
     # Loss and optimizer
     criterion = nn.CrossEntropyLoss()
